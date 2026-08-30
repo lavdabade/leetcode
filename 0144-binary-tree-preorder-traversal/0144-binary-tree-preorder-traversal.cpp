@@ -10,6 +10,24 @@
  * };
  */
 class Solution {
+public:
+    vector<int> preorderTraversal(TreeNode* root) {
+        vector<int> preOrder;
+        if(!root) return preOrder;
+        stack<TreeNode*> st;
+        st.push(root);
+        while(!st.empty()) {
+            TreeNode* node = st.top();
+            st.pop();
+            preOrder.push_back(node->val);
+            if(node->right) st.push(node->right);
+            if(node->left) st.push(node->left);
+        }
+        return preOrder;
+    }
+};
+
+class Solution_Recursion {
 private:
     void preorderTraversalUtil(TreeNode* root, vector<int> &preOrder) {
         if(!root) return;
