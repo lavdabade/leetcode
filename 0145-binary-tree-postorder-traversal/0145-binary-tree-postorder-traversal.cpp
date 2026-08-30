@@ -10,6 +10,25 @@
  * };
  */
 class Solution {
+public:
+    vector<int> postorderTraversal(TreeNode* root) {
+        vector<int> postOrder;
+        if(!root) return postOrder;
+        stack<TreeNode*> st;
+        st.push(root);
+        while(!st.empty()) {
+            TreeNode* node = st.top();
+            st.pop();
+            postOrder.push_back(node->val);
+            if(node->left) st.push(node->left);
+            if(node->right) st.push(node->right);
+        }
+        reverse(postOrder.begin(), postOrder.end());
+        return postOrder;
+    }
+};
+
+class Solution_Recursion {
 private:
     void postorderTraversal(TreeNode* root, vector<int> &postOrder) {
         if(!root) return;
