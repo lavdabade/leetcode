@@ -13,6 +13,35 @@ class Solution {
 public:
     vector<int> preorderTraversal(TreeNode* root) {
         vector<int> preOrder;
+        while(root) {
+            TreeNode* left = root->left;
+            if(left) {
+                while(left->right != nullptr && left->right != root) {
+                    left = left->right;
+                }
+                if(left->right == nullptr) {
+                    left->right = root;
+                    preOrder.push_back(root->val);
+                    root = root->left;
+                }
+                else {
+                    left->right = nullptr;
+                    root = root->right;
+                }
+            }
+            else {
+                preOrder.push_back(root->val);
+                root = root->right;
+            }
+        }
+        return preOrder;
+    }
+};
+
+class Solution_Iterative {
+public:
+    vector<int> preorderTraversal(TreeNode* root) {
+        vector<int> preOrder;
         if(!root) return preOrder;
         stack<TreeNode*> st;
         st.push(root);
