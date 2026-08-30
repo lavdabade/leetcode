@@ -10,6 +10,30 @@
  * };
  */
 class Solution {
+public:
+    vector<int> inorderTraversal(TreeNode* root) {
+        vector<int> inOrder;
+        stack<TreeNode*> st;
+        while(true) {
+            if(!root) {
+                if(st.empty()) {
+                    return inOrder;
+                }
+                root = st.top();
+                st.pop();
+                inOrder.push_back(root->val);
+                root = root->right;
+            }
+            else {
+                st.push(root);
+                root = root->left;
+            }
+        }
+        return inOrder;
+    }
+};
+
+class Solution_Recursion {
 private:
     void inorderTraversal(TreeNode* root, vector<int> &inOrder) {
         if(!root) return;
