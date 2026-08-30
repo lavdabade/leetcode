@@ -13,6 +13,35 @@ class Solution {
 public:
     vector<int> inorderTraversal(TreeNode* root) {
         vector<int> inOrder;
+        while(root) {
+            TreeNode* left = root->left;
+            if(left) {
+                while(left->right && left->right != root) {
+                left = left->right;
+                }
+                if(left->right) {
+                    left->right = nullptr;
+                    inOrder.push_back(root->val);
+                    root = root->right;
+                }
+                else {
+                    left->right = root;
+                    root = root->left;
+                }
+            }
+            else {
+                inOrder.push_back(root->val);
+                root = root->right;
+            }
+        }
+        return inOrder;
+    }
+};
+
+class Solution_Iterative {
+public:
+    vector<int> inorderTraversal(TreeNode* root) {
+        vector<int> inOrder;
         stack<TreeNode*> st;
         while(true) {
             if(!root) {
