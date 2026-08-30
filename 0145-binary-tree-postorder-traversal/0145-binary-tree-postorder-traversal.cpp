@@ -13,6 +13,36 @@ class Solution {
 public:
     vector<int> postorderTraversal(TreeNode* root) {
         vector<int> postOrder;
+        while(root) {
+            TreeNode* right = root->right;
+            if(right) {
+                while(right->left && right->left != root) {
+                    right = right->left;
+                }
+                if(right->left) {
+                    right->left = nullptr;
+                    root = root->left;
+                }
+                else {
+                    right->left = root;
+                    postOrder.push_back(root->val);
+                    root = root->right;
+                }
+            }
+            else {
+                postOrder.push_back(root->val);
+                root = root->left;
+            }
+        }
+        reverse(postOrder.begin(), postOrder.end());
+        return postOrder;
+    }
+};
+
+class Solution_Iterative {
+public:
+    vector<int> postorderTraversal(TreeNode* root) {
+        vector<int> postOrder;
         if(!root) return postOrder;
         stack<TreeNode*> st;
         st.push(root);
